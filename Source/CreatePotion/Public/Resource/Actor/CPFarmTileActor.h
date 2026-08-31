@@ -7,6 +7,17 @@
 #include "Resource/CPFarmType.h"
 #include "CPFarmTileActor.generated.h"
 
+class UCPForageableItemData;
+
+// 상호작용 종류
+enum class ECPFarmInteractionType : uint8
+{
+	None,
+	Plant,
+	Water,
+	Harvest
+};
+
 // 개별 농지 액터
 UCLASS()
 class CREATEPOTION_API ACPFarmTileActor : public AActor, public ICPInteractable, public ICPTimedInteractable
@@ -51,4 +62,19 @@ private:
 	
 	// 외형 최신화
 	void RefreshVisual();
+	
+	// 상호작용 결정
+	ECPFarmInteractionType GetInteractionType() const;
+	
+	// 씨앗 데이터 가져오기
+	UCPForageableItemData* GetSeedData(AActor* Interactor) const;
+	
+	// 씨앗 심기
+	void Plant(AActor* Interactor);
+	
+	// 물 주기
+	void Water(AActor* Interactor);
+	
+	// 수확하기
+	void Harvest(AActor* Interactor);
 };
